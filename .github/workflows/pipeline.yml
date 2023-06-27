@@ -1,0 +1,25 @@
+# Name of your workflow
+name: Processor Test
+on:
+  push:
+    branches: [ main ]
+jobs:
+  job1:
+    name: Job
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'javascript' ]
+    steps:
+      - name: Checkout the code to specific branch
+        uses: actions/checkout@v2
+      - name: Set up node
+        run: npm install
+      - name: Run Test
+        run: npm run test
